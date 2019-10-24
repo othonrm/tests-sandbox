@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 
-export default class TodoList extends Component {
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { Creators as TodoActions } from './../store/ducks/todos';
+
+class TodoList extends Component {
 
     state = {
         newTodo: '',
-        todos: [],
     }
 
     handleInputChange = e => {
@@ -12,7 +16,9 @@ export default class TodoList extends Component {
     }
 
     handleAddTodo = () => {
-        this.setState({ todos: [...this.state.todos, this.state.newTodo], newTodo: '' });
+        this.props.addTodo(this.state.newTodo);
+
+        this.setState({ newTodo: '' });
     }
 
     render() {
@@ -20,7 +26,7 @@ export default class TodoList extends Component {
             <div>
                 <ul>
                     {
-                        this.state.todos.map((todo, index) => <li key={index}>{todo}</li>)
+                        this.props.todos.map((todo, index) => <li key={index}>{todo}</li>)
                     }
                 </ul>
                 <input
@@ -34,3 +40,11 @@ export default class TodoList extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+  todos: state.todos.data
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(TodoActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
