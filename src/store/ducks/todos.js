@@ -4,6 +4,7 @@
 
 export const Types = {
     ADD: 'todos/ADD',
+    DELETE: 'todos/DELETE',
 };
 
 /**
