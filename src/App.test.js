@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
+
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+it(`should render hello from tests sandbox`, () => {
+  const wrapper = mount(<App />);
+
+  expect(wrapper.find('h1').exists()).toBe(true);
+})
