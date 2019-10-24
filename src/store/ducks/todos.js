@@ -19,6 +19,8 @@ export default function todos(state = INITIAL_STATE, action) {
     switch (action.type) {
         case Types.ADD:
             return { data: [...state.data, action.payload.data] }
+        case Types.DELETE:
+            return { data: [...state.data.filter(todo => todo !== action.payload.data)] }
         default:
             return state;
     }
@@ -31,6 +33,11 @@ export default function todos(state = INITIAL_STATE, action) {
 export const Creators = {
     addTodo: data => ({ 
         type: Types.ADD,
+        payload: { data }
+    }),
+
+    deleteTodo: data => ({ 
+        type: Types.DELETE,
         payload: { data }
     }),
 }
