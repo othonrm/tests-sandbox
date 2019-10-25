@@ -28,12 +28,36 @@ describe('TodoList component', () => {
         const wrapper = mount(
             <Provider store={store}>
                 <TodoList />
-                </Provider>
+            </Provider>
         );
     
         expect(wrapper.find('ul').exists()).toBe(true);
         expect(wrapper.find('input[name="todo"][type="text"]').exists()).toBe(true);
         expect(wrapper.find('button').exists()).toBe(true);
+    });
+
+    it('should be able to change the input value', () => {
+        const wrapper = mount(
+            <Provider store={store}>
+                <TodoList />
+            </Provider>
+        );
+    
+        wrapper.find('input[name="todo"]').simulate('change', { target: { value: 'Algo escrito no input' } });
+    
+        expect(wrapper.find('input[name="todo"][value="Algo escrito no input"]').exists()).toBe(true);
+    });
+
+    it('should be able to change the state based on input change and value', () => {
+        const wrapper = mount(
+            <Provider store={store}>
+                <TodoList />
+            </Provider>
+        );
+    
+        wrapper.find('input[name="todo"]').simulate('change', { target: { value: 'Algo escrito no input' } });
+    
+            expect(wrapper.find('TodoList').state('newTodo')).toEqual('Algo escrito no input');
     });
     
     it('should be able to add new todo', () => {

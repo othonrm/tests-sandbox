@@ -21,6 +21,16 @@ describe('Faker Saga', () => {
         await runSaga({ dispatch: action => dispatched.push(action) }, getFaker).toPromise();
 
         expect(dispatched).toContainEqual(FakerActions.getSuccess(mockResponse));
-    })
+    });
+
+    it('should fail to fetch faker api', async () => {
+        const dispatched = [];
+        
+        apiMock.onGet('/todos/1').reply(400);
+
+        await runSaga({ dispatch: action => dispatched.push(action) }, getFaker).toPromise();
+
+        expect(dispatched).toContainEqual(FakerActions.getFailure());
+    });
     
 })
