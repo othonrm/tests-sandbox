@@ -46,7 +46,8 @@ describe('TodoList component', () => {
         // console.log(wrapper.html());
     
         wrapper.find('TodoList').setState({ newTodo: 'Task 3' });    
-        wrapper.find('button').simulate('click');        
+        // wrapper.find('button').simulate('click');        
+        wrapper.find('form').simulate('submit');
         expect(store.getActions()).toContainEqual(TodoActions.addTodo('Task 3'));
     });
     

@@ -21,6 +21,15 @@ class TodoList extends Component {
         this.setState({ newTodo: '' });
     }
 
+    handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        // console.log(e.target.todo.value);
+
+        this.handleAddTodo();
+    }
+
     render() {
         return (
             <div>
@@ -29,13 +38,16 @@ class TodoList extends Component {
                         this.props.todos.map((todo, index) => <li key={index}>{todo}</li>)
                     }
                 </ul>
-                <input
-                    name="todo"
-                    type="text"
-                    onChange={this.handleInputChange}
-                    value={this.state.newTodo}
-                />
-                <button onClick={this.handleAddTodo}>Adicionar Todo</button>
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        autoFocus
+                        name="todo"
+                        type="text"
+                        onChange={this.handleInputChange}
+                        value={this.state.newTodo}
+                    />
+                    <button type="submit">Adicionar Todo</button>
+                </form>
             </div>
         )
     }
